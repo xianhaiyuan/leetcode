@@ -60,4 +60,33 @@ public class longest_substring_without_repeating_characters {
         return ans;
 
     }
+
+    public int lengthOfLongestSubstring2(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        if (s.length() == 1) {
+            return 1;
+        }
+        int max = Integer.MIN_VALUE;
+        // 记录不重复的位置
+        int pos = Integer.MIN_VALUE;
+        Map<Character, Integer> map = new HashMap<>();
+        int l = 0, r = 0;
+        while (l < s.length() && r < s.length()) {
+            Integer index = map.get(s.charAt(r));
+            // 发现重复
+            if (index != null) {
+                l = Math.max(index + 1, pos);
+                pos = l;
+            }
+            if (r - l + 1 > max) {
+                max = r - l + 1;
+            }
+            map.put(s.charAt(r), r);
+            r++;
+        }
+
+        return max;
+    }
 }

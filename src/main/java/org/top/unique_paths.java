@@ -21,4 +21,18 @@ public class unique_paths {
         return f[m-1][n-1];
     }
 
+    // 优化，只用一维数组，当前 = 左边 + 上边，上一行的值如果直接保存在数组中，那么当前 = 左边 + 当前
+    public static int uniquePaths1(int m, int n) {
+        int[] f = new int[n];
+        for (int i = 0; i < f.length; i++) {
+            f[i] = 1;
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                f[j] = f[j-1] + f[j];
+            }
+        }
+        return f[n - 1];
+    }
+
 }

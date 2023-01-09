@@ -10,8 +10,8 @@ import java.util.Queue;
 public class course_schedule_ii {
 
     public static void main(String[] args) {
-        int[][] arr = new int[][] { {} };
-        int[] res = findOrder(3, arr);
+        int[][] arr = new int[][] { {1,0} };
+        int[] res = findOrder(2, arr);
         System.out.println(res.length);
     }
 
@@ -58,11 +58,9 @@ public class course_schedule_ii {
 
         List<Integer> points = edges.get(index);
 
-        if (points == null) {
-            return;
-        }
         visited[index] = 1;
         for (Integer p : points) {
+            // 有环
             if (visited[p] == 1) {
                 valid = false;
                 return;
@@ -118,6 +116,7 @@ public class course_schedule_ii {
             List<Integer> list = edges.get(point);
             for (Integer item : list) {
                 inEdge[item]--;
+                // 入度为0才将节点放入队列，这样有环才能判断出来
                 if (inEdge[item] == 0) {
                     queue.offer(item);
                 }

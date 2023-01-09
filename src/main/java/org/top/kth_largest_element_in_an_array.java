@@ -13,6 +13,41 @@ public class kth_largest_element_in_an_array {
 
     }
 
+    public static int findKthLargest2(int[] nums, int k) {
+        int l = 0, r = nums.length - 1;
+
+        while (l <= r) {
+            int pos = partition2(nums, l, r);
+            if (nums.length - k == pos) {
+                return nums[pos];
+            } else if (pos < nums.length - k) {
+                l = pos + 1;
+            } else {
+                r = pos - 1;
+            }
+        }
+
+        return nums[0];
+    }
+
+    public static int partition2(int[] nums, int left, int right) {
+        int left_tmp = left - 1;
+        int right_tmp = right;
+        int index = left;
+
+        while (index < right_tmp) {
+            if (nums[index] < nums[right]) {
+                swap(nums, index++, ++left_tmp);
+            } else if (nums[index] > nums[right]) {
+                swap(nums, index, --right_tmp);
+            } else {
+                index++;
+            }
+        }
+        swap(nums, right, right_tmp);
+        return left_tmp + 1;
+    }
+
     public static int func(int[] arr, int k) {
         int res = quickSelect(arr, 0, arr.length - 1, k);
         return res;
