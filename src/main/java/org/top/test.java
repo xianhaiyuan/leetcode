@@ -8,41 +8,68 @@ import java.util.*;
 //https://github.com/afatcoder/LeetcodeTop/blob/master/microsoft/SDE.md
 public class test {
     public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring("abcabcbb"));
+
+        String s = " ab  cd ";
+        System.out.println(reverseWords(s));
     }
 
-    // abcabcbb
-    public static int lengthOfLongestSubstring(String s) {
-        if (s == null || s.length() == 0) {
-            return 0;
+    public static String reverseWords(String s) {
+        s = trim(s);
+        s = reverse(s);
+        s = reverseEveryWord(s);
+        return s;
+    }
+
+    private static String reverseEveryWord(String s) {
+        String[] arr = s.split(" ");
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            list.add(reverse(arr[i]));
         }
-        if (s.length() == 1) {
-            return 1;
+        return String.join(" ", list);
+    }
+
+    private static String reverse(String s) {
+        int l = 0, r = s.length() - 1;
+        StringBuilder sb = new StringBuilder(s);
+        while (l < r) {
+            char tmp = sb.charAt(l);
+            sb.setCharAt(l, sb.charAt(r));
+            sb.setCharAt(r, tmp);
+            l++;
+            r--;
         }
-        int max = Integer.MIN_VALUE;
-        int pos = Integer.MIN_VALUE;
-        Map<Character, Integer> map = new HashMap<>();
-        int l = 0, r = 0;
-        while (l < s.length() && r < s.length()) {
-            Integer index = map.get(s.charAt(r));
-            if (index == null) {
-                if (r - l + 1 > max) {
-                    max = r - l + 1;
-                }
-                map.put(s.charAt(r), r);
-                r++;
-            } else {
-                l = Math.max(index + 1, pos);
-                if (r - l + 1 > max) {
-                    max = r - l + 1;
-                }
-                pos = l;
-                map.put(s.charAt(r), r);
-                r++;
+        return sb.toString();
+    }
+
+    public static String trim(String s) {
+        int left = 0, right = s.length() - 1;
+
+        while (left <= right) {
+            if (s.charAt(left) != ' ') {
+                break;
             }
+            left++;
         }
 
-        return max;
+        while (left <= right) {
+            if (s.charAt(right) != ' ') {
+                break;
+            }
+            right--;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while (left <= right) {
+            if (s.charAt(left) == ' ' && sb.charAt(sb.length() - 1) == ' ') {
+                left++;
+                continue;
+            }
+            sb.append(s.charAt(left++));
+        }
+
+        return sb.toString();
+
     }
 
 

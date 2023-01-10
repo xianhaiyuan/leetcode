@@ -71,6 +71,7 @@ public class lru_cache {
                 --size;
             }
         } else {
+            // 如果key已经存在，则更新value值
             node.val = val;
             moveToHead(node);
         }
