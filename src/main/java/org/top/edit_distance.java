@@ -24,6 +24,7 @@ public class edit_distance {
                 if (word1.charAt(i-1) == word2.charAt(j-1)) {
                     f[i][j] = f[i-1][j-1];
                 } else {
+                    // f[i-1][j-1] 换，f[i-1][j] 增，f[i][j-1] 删
                     f[i][j] = Math.min(f[i-1][j-1], Math.min(f[i-1][j], f[i][j-1])) + 1;
                 }
             }
