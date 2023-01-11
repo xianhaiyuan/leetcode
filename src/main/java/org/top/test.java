@@ -9,68 +9,80 @@ import java.util.*;
 public class test {
     public static void main(String[] args) {
 
-        String s = " ab  cd ";
-        System.out.println(reverseWords(s));
+        String s = validIPAddress("12..33.4");
+        System.out.println(s);
+
     }
 
-    public static String reverseWords(String s) {
-        s = trim(s);
-        s = reverse(s);
-        s = reverseEveryWord(s);
-        return s;
-    }
-
-    private static String reverseEveryWord(String s) {
-        String[] arr = s.split(" ");
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < arr.length; i++) {
-            list.add(reverse(arr[i]));
-        }
-        return String.join(" ", list);
-    }
-
-    private static String reverse(String s) {
-        int l = 0, r = s.length() - 1;
-        StringBuilder sb = new StringBuilder(s);
-        while (l < r) {
-            char tmp = sb.charAt(l);
-            sb.setCharAt(l, sb.charAt(r));
-            sb.setCharAt(r, tmp);
-            l++;
-            r--;
-        }
-        return sb.toString();
-    }
-
-    public static String trim(String s) {
-        int left = 0, right = s.length() - 1;
-
-        while (left <= right) {
-            if (s.charAt(left) != ' ') {
-                break;
+    public static String validIPAddress(String queryIP) {
+        //IPV4
+        if (queryIP.indexOf('.') > 0) {
+            if (queryIP.charAt(queryIP.length() - 1) == '.') {
+                return "Neither";
             }
-            left++;
-        }
-
-        while (left <= right) {
-            if (s.charAt(right) != ' ') {
-                break;
+            String[] split = queryIP.split("\\.");
+            if (split.length != 4) {
+                return "Neither";
             }
-            right--;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        while (left <= right) {
-            if (s.charAt(left) == ' ' && sb.charAt(sb.length() - 1) == ' ') {
-                left++;
-                continue;
+            for (String str : split) {
+                // 是否全是数字，并且0<=str<=255, str.length <= 3
+                if (!ipv4Valid(str)) {
+                    return "Neither";
+                }
             }
-            sb.append(s.charAt(left++));
+            return "IPv4";
+        } else if (queryIP.indexOf(':') > 0) {
+            if (queryIP.charAt(queryIP.length() - 1) == ':') {
+                return "Neither";
+            }
+            String[] split = queryIP.split(":");
+            if (split.length != 8) {
+                return "Neither";
+            }
+            for (String str : split) {
+                if (!ipv6Valid(str)) {
+                    return "Neither";
+                }
+            }
+            return "IPv6";
+        } else {
+            return "Neither";
         }
-
-        return sb.toString();
 
     }
 
+    private static boolean ipv6Valid(String str) {
+        if (str.length() < 1 || str.length() > 4) {
+            return false;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if ( !((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) ) {
+                return false;
+            }
+        }
 
+        return true;
+    }
+
+    private static boolean ipv4Valid(String str) {
+        if (str.length() > 3 || str.length() == 0) {
+            return false;
+        }
+        int sum = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) < '0' || str.charAt(i) > '9') {
+                return false;
+            }
+            // 不能前导0
+            if (i == 0 && str.charAt(i) == '0' && str.length() > 1) {
+                return false;
+            }
+            sum = sum * 10 + str.charAt(i) - '0';
+        }
+        if (sum < 0 || sum > 255) {
+            return false;
+        }
+        return true;
+    }
 }

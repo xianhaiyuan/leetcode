@@ -10,67 +10,49 @@ public class validate_ip_address {
     }
 
     public static String validIPAddress(String queryIP) {
-        String splitChar = ":";
-        if (queryIP.indexOf(".") > 0) {
-            splitChar = "\\.";
-        }
-
-        if (isIPV4(queryIP, splitChar)) {
+        //IPV4
+        if (queryIP.indexOf('.') > 0) {
+            if (queryIP.charAt(queryIP.length() - 1) == '.') {
+                return "Neither";
+            }
+            String[] split = queryIP.split("\\.");
+            if (split.length != 4) {
+                return "Neither";
+            }
+            for (String str : split) {
+                // 是否全是数字，并且0<=str<=255, str.length <= 3
+                if (!ipv4Valid(str)) {
+                    return "Neither";
+                }
+            }
             return "IPv4";
-        } else if (isIPV6(queryIP, splitChar)) {
+        } else if (queryIP.indexOf(':') > 0) {
+            if (queryIP.charAt(queryIP.length() - 1) == ':') {
+                return "Neither";
+            }
+            String[] split = queryIP.split(":");
+            if (split.length != 8) {
+                return "Neither";
+            }
+            for (String str : split) {
+                if (!ipv6Valid(str)) {
+                    return "Neither";
+                }
+            }
             return "IPv6";
+        } else {
+            return "Neither";
         }
-        return "Neither";
 
     }
 
-    public static boolean isNumValid(char num) {
-        int n = num - '0';
-        if (n >= 0 && n <= 9) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean isIPV4NumValid(String s) {
-
-        if (s == null || s.length() == 0) {
+    private static boolean ipv6Valid(String str) {
+        if (str.length() < 1 || str.length() > 4) {
             return false;
         }
-
-        for (int i = 0 ; i < s.length(); i++) {
-            if ((s.length() > 1 && i == 0 && s.charAt(i) == '0') || !isNumValid(s.charAt(i))) {
-                return false;
-            }
-        }
-
-        if (s.length() <= 3 && s.length() >= 0 && (Integer.valueOf(s) >= 0 && Integer.valueOf(s) <= 255)) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean isIPV4(String str, String splitChar) {
-
-        String[] split = str.split(splitChar);
-
-        int splitCharNum = 0;
         for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '.') {
-                splitCharNum++;
-            }
-        }
-
-        if (splitCharNum != 3) {
-            return false;
-        }
-
-        if (split.length != 4) {
-            return false;
-        }
-
-        for (String s : split) {
-            if (!isIPV4NumValid(s)) {
+            char c = str.charAt(i);
+            if ( !((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) ) {
                 return false;
             }
         }
@@ -78,52 +60,24 @@ public class validate_ip_address {
         return true;
     }
 
-    public static boolean isIPV6NumValid(String s) {
-
-        if (s == null || s.length() == 0) {
+    private static boolean ipv4Valid(String str) {
+        if (str.length() > 3 || str.length() == 0) {
             return false;
         }
-
-        if (!(s.length() >= 1 && s.length() <= 4)) {
-            return false;
-        }
-
-        for (int i = 0 ; i < s.length(); i++) {
-            if (!((s.charAt(i) - '0' >= 0 && s.charAt(i) - '0' <= 9) || (s.charAt(i) >= 'a' && s.charAt(i) <= 'f')
-                    || (s.charAt(i) >= 'A' && s.charAt(i) <= 'F'))) {
-                return false;
-            }
-        }
-
-        return true;
-
-    }
-
-    public static boolean isIPV6(String str, String splitChar) {
-
-        String[] split = str.split(splitChar);
-
-        int splitCharNum = 0;
+        int sum = 0;
         for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == ':') {
-                splitCharNum++;
-            }
-        }
-
-        if (splitCharNum != 7) {
-            return false;
-        }
-
-        if (split.length != 8) {
-            return false;
-        }
-
-        for (String s : split) {
-            if (!isIPV6NumValid(s)) {
+            if (str.charAt(i) < '0' || str.charAt(i) > '9') {
                 return false;
             }
+            // 不能前导0
+            if (i == 0 && str.charAt(i) == '0' && str.length() > 1) {
+                return false;
+            }
+            sum = sum * 10 + str.charAt(i) - '0';
         }
-
+        if (sum < 0 || sum > 255) {
+            return false;
+        }
         return true;
     }
 }

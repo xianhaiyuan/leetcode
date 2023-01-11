@@ -68,4 +68,19 @@ public class serialize_and_deserialize_binary_tree {
         return node;
 
     }
+
+    static int index = 0;
+    public static TreeNode deserializeFunc1(List<String> arr) {
+        if (index >= arr.size() || "null".equals(arr.get(index))) {
+            index++;
+            return null;
+        }
+
+        TreeNode node = new TreeNode(Integer.parseInt(arr.get(index)));
+        index++;
+        node.left = deserializeFunc1(arr);
+        node.right = deserializeFunc1(arr);
+
+        return node;
+    }
 }
