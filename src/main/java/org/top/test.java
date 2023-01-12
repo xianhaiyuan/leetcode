@@ -9,8 +9,7 @@ import java.util.*;
 public class test {
     public static void main(String[] args) {
 
-        String s = validIPAddress("12..33.4");
-        System.out.println(s);
+        System.out.println(1<<3);
 
     }
 
