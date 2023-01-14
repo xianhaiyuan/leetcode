@@ -8,7 +8,7 @@ import java.util.*;
 //https://github.com/afatcoder/LeetcodeTop/blob/master/microsoft/SDE.md
 public class test {
     public static void main(String[] args) {
-
+        System.out.println(Integer.toBinaryString((20)&(-20)));
     }
 
     public static String validIPAddress(String queryIP) {

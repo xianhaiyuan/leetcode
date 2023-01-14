@@ -1,7 +1,8 @@
 package org.top;
 
 import java.util.*;
-
+//https://leetcode-cn.com/problems/sudoku-solver
+//解数独
 public class sudoku_solver {
 
     List<int[]> list = new ArrayList<>();
@@ -79,9 +80,11 @@ public class sudoku_solver {
 
         int[] arr = list1.get(index);
         int i = arr[0], j = arr[1];
+        // 把 (~x)&0x1ff 为0的位全部变成1，1的位变成0
         int mask = ~(row1[i] | col1[j] | bloack1[i/3][j/3]) & 0x1ff;
+        //每执行一次x = x&(x-1)，会将x用二进制表示时最右边的一个1变为0
         for (; mask != 0 && !valid1; mask &= (mask-1)) {
-            // 000010100 -> 000000100
+            // 000010100 -> 000000100, 保留最右边的1
             int d = mask & (-mask);
             // 左移num位，那么原来填的数字为num+1，左移多少位可以用d-1后的二进制有多少个1得出
             // 9位二进制，1<<0等于1，最多1<<8

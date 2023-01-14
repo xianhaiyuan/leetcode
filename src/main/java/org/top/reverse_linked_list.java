@@ -1,16 +1,10 @@
 package org.top;
 
+import org.top.common.ListNode;
+
 // https://leetcode-cn.com/problems/reverse-linked-list
 // 反转链表
 public class reverse_linked_list {
-
-    static class ListNode {
-        ListNode next;
-        int val;
-        ListNode(int v) {
-            val = v;
-        }
-    }
 
     public static void main(String[] args) {
         ListNode n1 = new ListNode(1);
