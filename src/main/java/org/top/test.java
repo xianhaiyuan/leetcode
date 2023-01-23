@@ -8,78 +8,47 @@ import java.util.*;
 //https://github.com/afatcoder/LeetcodeTop/blob/master/microsoft/SDE.md
 public class test {
     public static void main(String[] args) {
-        System.out.println(Integer.toBinaryString((20)&(-20)));
+        int[] preorder = {3,9,20,15,7};
+        int[] inorder = {9,3,15,20,7};
+
+        TreeNode node = buildTree(preorder, inorder);
+        System.out.println(node.val);
     }
 
-    public static String validIPAddress(String queryIP) {
-        //IPV4
-        if (queryIP.indexOf('.') > 0) {
-            if (queryIP.charAt(queryIP.length() - 1) == '.') {
-                return "Neither";
-            }
-            String[] split = queryIP.split("\\.");
-            if (split.length != 4) {
-                return "Neither";
-            }
-            for (String str : split) {
-                // 是否全是数字，并且0<=str<=255, str.length <= 3
-                if (!ipv4Valid(str)) {
-                    return "Neither";
-                }
-            }
-            return "IPv4";
-        } else if (queryIP.indexOf(':') > 0) {
-            if (queryIP.charAt(queryIP.length() - 1) == ':') {
-                return "Neither";
-            }
-            String[] split = queryIP.split(":");
-            if (split.length != 8) {
-                return "Neither";
-            }
-            for (String str : split) {
-                if (!ipv6Valid(str)) {
-                    return "Neither";
-                }
-            }
-            return "IPv6";
-        } else {
-            return "Neither";
+    static Map<Integer, Integer> map;
+    public static TreeNode buildTree(int[] preorder, int[] inorder) {
+        int n = preorder.length;
+        map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
         }
+
+        return build(preorder, inorder, 0, n - 1, 0, n - 1);
 
     }
 
-    private static boolean ipv6Valid(String str) {
-        if (str.length() < 1 || str.length() > 4) {
-            return false;
-        }
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            if ( !((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) ) {
-                return false;
-            }
+
+    public static TreeNode build(int[] preorder, int[] inorder, int pre_left, int pre_right,
+                                 int in_left, int in_right) {
+
+        if (pre_left > pre_right) {
+            return null;
         }
 
-        return true;
+        TreeNode root = new TreeNode(preorder[pre_left]);
+
+        int in_root = map.get(preorder[pre_left]);
+
+        int left_size = in_root - in_left;
+
+        root.left = build(preorder, inorder, pre_left + 1, pre_left + left_size, in_left,
+                in_root - 1);
+
+
+        root.right = build(preorder, inorder, pre_left + left_size + 1, pre_right, in_root + 1, in_right);
+
+        return root;
+
     }
 
-    private static boolean ipv4Valid(String str) {
-        if (str.length() > 3 || str.length() == 0) {
-            return false;
-        }
-        int sum = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) < '0' || str.charAt(i) > '9') {
-                return false;
-            }
-            // 不能前导0
-            if (i == 0 && str.charAt(i) == '0' && str.length() > 1) {
-                return false;
-            }
-            sum = sum * 10 + str.charAt(i) - '0';
-        }
-        if (sum < 0 || sum > 255) {
-            return false;
-        }
-        return true;
-    }
 }
