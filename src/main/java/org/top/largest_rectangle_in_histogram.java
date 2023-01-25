@@ -8,7 +8,7 @@ public class largest_rectangle_in_histogram {
 
     public static void main(String[] args) {
         int[] arr = {2,1,2};
-        System.out.println(largestRectangleArea1(arr));
+        System.out.println(largestRectangleArea(arr));
     }
 
     // 单调栈
@@ -32,12 +32,13 @@ public class largest_rectangle_in_histogram {
         heights = newHeights;
 
         Deque<Integer> stack = new ArrayDeque<>(len);
-        // 先放入哨兵，在循环里就不用做非空判断
+        // 先放入哨兵，在循环里就不用做栈的非空判断
         stack.addLast(0);
 
         for (int i = 1; i < len; i++) {
             while (heights[i] < heights[stack.peekLast()]) {
                 int curHeight = heights[stack.pollLast()];
+                // 计算宽度一定要用stack.peekLast()，虽然可能会有一些元素pop出去，但是这个递增的关系还是存在
                 int curWidth = i - stack.peekLast() - 1;
                 res = Math.max(res, curHeight * curWidth);
             }
@@ -51,7 +52,7 @@ public class largest_rectangle_in_histogram {
         int n = heights.length;
         int[] left = new int[n];
         int[] right = new int[n];
-
+        // 用于如果一直递增
         Arrays.fill(right, n);
 
         Stack<Integer> stack = new Stack<>();

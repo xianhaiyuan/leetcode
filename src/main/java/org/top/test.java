@@ -8,47 +8,35 @@ import java.util.*;
 //https://github.com/afatcoder/LeetcodeTop/blob/master/microsoft/SDE.md
 public class test {
     public static void main(String[] args) {
-        int[] preorder = {3,9,20,15,7};
-        int[] inorder = {9,3,15,20,7};
-
-        TreeNode node = buildTree(preorder, inorder);
-        System.out.println(node.val);
+        int[] arr = {2,1,2};
+        System.out.println(f(arr));
     }
 
-    static Map<Integer, Integer> map;
-    public static TreeNode buildTree(int[] preorder, int[] inorder) {
-        int n = preorder.length;
-        map = new HashMap<>();
-        for (int i = 0; i < inorder.length; i++) {
-            map.put(inorder[i], i);
+    public static int f(int[] heights) {
+        int n = heights.length;
+        int[] h = new int[n+2];
+        System.arraycopy(heights, 0, h, 1, n);
+        heights = h;
+        heights[0] = 0;
+        heights[n+1] = 0;
+
+        Stack<Integer> stack = new Stack<>();
+        int ans = 0;
+        stack.push(0);
+        n+=2;
+        for (int i = 1; i < n; i++) {
+
+            while (heights[i] < heights[stack.peek()]) {
+                int right = stack.pop();
+                ans = Math.max(ans, (i-right)*heights[right]);
+            }
+
+
+            stack.push(i);
         }
 
-        return build(preorder, inorder, 0, n - 1, 0, n - 1);
-
+        return ans;
     }
 
-
-    public static TreeNode build(int[] preorder, int[] inorder, int pre_left, int pre_right,
-                                 int in_left, int in_right) {
-
-        if (pre_left > pre_right) {
-            return null;
-        }
-
-        TreeNode root = new TreeNode(preorder[pre_left]);
-
-        int in_root = map.get(preorder[pre_left]);
-
-        int left_size = in_root - in_left;
-
-        root.left = build(preorder, inorder, pre_left + 1, pre_left + left_size, in_left,
-                in_root - 1);
-
-
-        root.right = build(preorder, inorder, pre_left + left_size + 1, pre_right, in_root + 1, in_right);
-
-        return root;
-
-    }
 
 }
