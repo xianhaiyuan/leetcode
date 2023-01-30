@@ -1,9 +1,8 @@
 package org.top;
 
-import org.top.common.Node;
-import org.top.common.TreeNode;
+import org.top.二分查找.find_in_mountain_array_2;
 
-import java.util.*;
+import java.util.PriorityQueue;
 
 //https://github.com/afatcoder/LeetcodeTop/blob/master/microsoft/SDE.md
 public class test {
@@ -11,21 +10,31 @@ public class test {
 
     }
 
-    private static int maxVal = Integer.MIN_VALUE;
+    static PriorityQueue<Integer> queMin = new PriorityQueue<>((a,b)->a-b);
+    static PriorityQueue<Integer> queMax = new PriorityQueue<>((a,b)->b-a);
 
-    public static int func(TreeNode node) {
-        if (node == null) {
-            return 0;
+    public void addNum(int num) {
+        if (queMax.isEmpty() || queMax.peek() < num) {
+            queMax.offer(num);
+            if (queMax.size() > queMin.size() + 1) {
+                queMin.offer(queMax.poll());
+            }
+        } else {
+            queMin.offer(num);
+            if (queMin.size() > queMax.size()) {
+                queMax.offer(queMin.poll());
+            }
         }
 
-        int lnum = func(node.left);
-        int rnum = func(node.right);
-
-        if (lnum + rnum > maxVal) {
-            maxVal = lnum + rnum;
-        }
-
-        return Math.max(lnum, rnum) + 1;
     }
+
+    public double findMedian() {
+        if (queMin.size() == queMax.size()) {
+            return (queMin.peek() + queMax.peek()) / 2.0;
+        } else {
+            return queMax.peek();
+        }
+    }
+
 
 }

@@ -1,10 +1,19 @@
-package org.top;
+package org.top.树;
 
 import java.util.Stack;
 
 //https://leetcode.cn/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/
 //二叉搜索树的后序遍历序列
-public class er_cha_sou_suo_shu_de_hou_xu_bian_li_xu_lie_lcof {
+/*
+输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果。如果是则返回 true，否则返回 false。假设输入的数组的任意两个数字都互不相同。
+
+输入: [1,6,3,2,5]
+输出: false
+
+输入: [1,3,2,6,5]
+输出: true
+ */
+public class er_cha_sou_suo_shu_de_hou_xu_bian_li_xu_lie_lcof_11 {
     public static void main(String[] args) {
         int[] arr = {1,3,2,6,5};
         System.out.println(verifyPostorder2(arr));
@@ -31,6 +40,8 @@ public class er_cha_sou_suo_shu_de_hou_xu_bian_li_xu_lie_lcof {
             p++;
         }
         return p == end && recur(postorder, start, s0) && recur(postorder, s0 + 1, end - 1);
+
+        //return p == end && recur(postorder, start, s0) && recur(postorder, s0 + 1, p - 1);
     }
 
     //辅助单调栈
