@@ -1,10 +1,14 @@
-package org.top;
+package org.top.树;
 
 import org.top.common.TreeNode;
 
 //https://mp.weixin.qq.com/s/yewlHvHSilMsrUMFIO8WAA
 //二叉树的下一个节点
-public class binary_tree_next_node {
+/*
+给定二叉树其中的一个结点，请找出其中序遍历顺序的下一个结点并且返回。
+注意，树中的结点不仅包含左右子结点，而且包含指向父结点的指针。
+ */
+public class binary_tree_next_node_6 {
 
     public static void main(String[] args) {
         TreeNode n1 = new TreeNode(1);

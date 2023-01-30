@@ -1,4 +1,4 @@
-package org.top;
+package org.top.树;
 
 import org.top.common.TreeNode;
 
@@ -6,7 +6,7 @@ import java.util.*;
 
 //https://leetcode-cn.com/problems/binary-tree-inorder-traversal
 //二叉树的中序遍历
-public class binary_tree_inorder_traversal {
+public class binary_tree_inorder_traversal_4 {
     public static void main(String[] args) {
 
 

@@ -1,4 +1,4 @@
-package org.top;
+package org.top.树;
 
 import org.top.common.TreeNode;
 
@@ -6,7 +6,25 @@ import java.util.*;
 
 //二叉树的锯齿形层次遍历
 //https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal
-public class binary_tree_zigzag_level_order_traversal {
+/*
+给你二叉树的根节点 root ，返回其节点值的 锯齿形层序遍历 。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
+
+输入：root = [3,9,20,null,null,15,7]
+输出：[[3],[20,9],[15,7]]
+
+输入：root = [1]
+输出：[[1]]
+
+输入：root = []
+输出：[]
+
+提示：
+
+    树中节点数目在范围 [0, 2000] 内
+    -100 <= Node.val <= 100
+
+ */
+public class binary_tree_zigzag_level_order_traversal_7 {
     public static void main(String[] args) {
         TreeNode n1 = new TreeNode(3);
         TreeNode n2 = new TreeNode(9);
