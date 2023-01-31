@@ -17,10 +17,10 @@ package org.top.二分查找;
 
 提示：
 
-    0 <= nums.length <= 105
-    -109 <= nums[i] <= 109
+    0 <= nums.length <= 10^5
+    -10^9 <= nums[i] <= 10^9
     nums 是一个非递减数组
-    -109 <= target <= 109
+    -10^9 <= target <= 10^9
 
  */
 public class find_first_and_last_position_of_element_in_sorted_array_1 {

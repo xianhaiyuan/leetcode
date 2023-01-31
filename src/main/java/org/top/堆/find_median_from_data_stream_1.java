@@ -29,9 +29,9 @@ medianFinder.findMedian(); // return 2.0
 
 提示:
 
-    -105 <= num <= 105
+    -10^5 <= num <= 10^5
     在调用 findMedian 之前，数据结构中至少有一个元素
-    最多 5 * 104 次调用 addNum 和 findMedian
+    最多 5 * 10^4 次调用 addNum 和 findMedian
 
 
  */

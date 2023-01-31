@@ -9,7 +9,7 @@ package org.top.动态规划;
 输出: 5
 解释: 12258有5种不同的翻译，分别是"bccfi", "bwfi", "bczi", "mcfi"和"mzi"
 
-0 <= num < 231
+0 <= num < 2^31
  */
 public class ba_shu_zi_fan_yi_cheng_zi_fu_chuan_lcof_1 {
 

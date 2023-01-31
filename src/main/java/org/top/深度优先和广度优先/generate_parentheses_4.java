@@ -1,4 +1,4 @@
-package org.top;
+package org.top.深度优先和广度优先;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -7,7 +7,21 @@ import java.util.Queue;
 
 //https://leetcode-cn.com/problems/generate-parentheses
 //括号生成
-public class generate_parentheses {
+/*
+数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+
+输入：n = 3
+输出：["((()))","(()())","(())()","()(())","()()()"]
+
+输入：n = 1
+输出：["()"]
+
+提示：
+
+    1 <= n <= 8
+
+ */
+public class generate_parentheses_4 {
     public static void main(String[] args) {
 
         List<String> res = generateParenthesis1(3);

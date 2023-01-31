@@ -32,8 +32,8 @@ myHashMap.get(2);    // 返回 -1（未找到），myHashMap 现在为 [[1,1]]
 
  提示：
 
-    0 <= key, value <= 106
-    最多调用 104 次 put、get 和 remove 方法
+    0 <= key, value <= 10^6
+    最多调用 10^4 次 put、get 和 remove 方法
 
 
  */

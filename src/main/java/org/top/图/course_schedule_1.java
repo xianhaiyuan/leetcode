@@ -21,7 +21,7 @@ import java.util.*;
 
 提示：
 
-    1 <= numCourses <= 105
+    1 <= numCourses <= 10^5
     0 <= prerequisites.length <= 5000
     prerequisites[i].length == 2
     0 <= ai, bi < numCourses

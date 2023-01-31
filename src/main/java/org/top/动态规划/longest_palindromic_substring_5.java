@@ -1,16 +1,34 @@
-package org.top;
+package org.top.动态规划;
 
 import java.util.*;
 
 //https://leetcode.cn/problems/longest-palindromic-substring
 //最长回文子串
-public class longest_palindromic_substring {
+/*
+给你一个字符串 s，找到 s 中最长的回文子串。
+如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。
+
+输入：s = "babad"
+输出："bab"
+解释："aba" 同样是符合题意的答案。
+
+输入：s = "cbbd"
+输出："bb"
+
+提示：
+
+    1 <= s.length <= 1000
+    s 仅由数字和英文字母组成
+
+ */
+public class longest_palindromic_substring_5 {
 
     public static void main(String[] args) {
         String res = longestPalindrome1("babad");
         System.out.println(res);
     }
 
+    //Manacher 马拉车算法
     public String longestPalindrome(String s) {
         int len = s.length();
         if (len < 2) {
@@ -104,10 +122,10 @@ public class longest_palindromic_substring {
             // #a#b#b#a# -> 9/2 = 4
             int cur_arm_len;
             // 如果在曾经最大扩展的范围内
-            if (i <= right) {
+            if (i <= right) { // <= 容易写成 <
                 // i的对称点
                 int i_sym = j*2 - i;
-                // 扩的时候不能找过边界
+                // 扩的时候不能找过边界（易漏点）
                 int min_arm_len = Math.min(arm_len.get(i_sym), right - i);
                 cur_arm_len = expend1(s, i - min_arm_len, i + min_arm_len);
             } else {
@@ -133,6 +151,57 @@ public class longest_palindromic_substring {
             }
         }
         return ans.toString();
+    }
+
+    public static String longestPalindroe2(String s) {
+
+
+        StringBuilder sb = new StringBuilder("#");
+        for (int i = 0; i < s.length(); i++) {
+            sb.append(s.charAt(i)).append("#");
+        }
+        sb.append("#");
+
+        s = sb.toString();
+
+        int n = sb.length();
+
+        int[] f = new int[n];
+
+        int j = -1, r = -1;
+        int maxExpend = -1;
+        int begin = -1, end = -1;
+
+        for (int i = 0; i < n; i++) {
+            int expend;
+            if (i <= r) {
+                int sym_i = 2 * j - i;
+                int tmp = Math.min(f[sym_i], r - i);
+                expend = expend(s, i - tmp, i + tmp);
+            } else {
+                expend = expend(s, i, i);
+            }
+
+            f[i] = expend;
+
+            if (i + expend > r) {
+                r = i + expend;
+                j = i;
+            }
+            if (expend > maxExpend) {
+                maxExpend = expend;
+                begin = i - expend;
+                end = i + expend;
+            }
+        }
+
+        sb = new StringBuilder();
+        for (int i = begin; i <= end; i++) {
+            if (s.charAt(i) != '#') {
+                sb.append(s.charAt(i));
+            }
+        }
+        return sb.toString();
     }
 
     private int expend1(String s, int left, int right) {

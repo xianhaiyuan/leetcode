@@ -21,7 +21,7 @@ import org.top.common.TreeNode;
 提示：
 
     树中的节点数在范围 [0, 5000] 内
-    -104 <= Node.val <= 104
+    -10^4 <= Node.val <= 10^4
 
 
  */

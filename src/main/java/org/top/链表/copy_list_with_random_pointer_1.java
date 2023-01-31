@@ -30,7 +30,7 @@ import java.util.*;
 提示：
 
     0 <= n <= 1000
-    -104 <= Node.val <= 104
+    -10^4 <= Node.val <= 10^4
     Node.random 为 null 或指向链表中的节点。
 
  */
