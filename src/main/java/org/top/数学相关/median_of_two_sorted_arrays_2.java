@@ -38,6 +38,8 @@ public class median_of_two_sorted_arrays_2 {
 
         int left = 0, right = nums1.length, n1 = nums1.length, n2 = nums2.length;
         int median1 = 0, median2 = 0;
+        // 有序二分
+        // 当right==nums1.length时，右侧元素个数为0
         while (left <= right) {
             int i = left + (right - left) / 2;
             // i + j = (n1 - i) + (n2 - j) + 1
@@ -52,6 +54,7 @@ public class median_of_two_sorted_arrays_2 {
             int num_j_left = (j == 0 ? Integer.MIN_VALUE : nums2[j - 1]);
             int num_j_right = (j == n2 ? Integer.MAX_VALUE : nums2[j]);
 
+            // left_i 本来就比right_i小，所以只需要和right_j比较
             if (num_i_left <= num_j_right) {
                 median1 = Math.max(num_i_left, num_j_left);
                 median2 = Math.min(num_i_right, num_j_right);
@@ -62,39 +65,5 @@ public class median_of_two_sorted_arrays_2 {
         }
 
         return (n1 + n2) % 2 == 0 ? (median1 + median2) / 2.0 : median1;
-    }
-
-
-    public static double findMedianSortedArrays2(int[] nums1, int[] nums2) {
-        int n1 = nums1.length, n2 = nums2.length;
-        if (n1 > n2) {
-            return findMedianSortedArrays2(nums2, nums1);
-        }
-
-        int left = 0, right = n1;
-        int m1 = 0, m2 = 0;
-
-        // 有序二分
-        while (left <= right) {
-            int i = (left + right) / 2;
-            int j = (n1 + n2) / 2 - i;
-
-            int left_i = i == 0 ? Integer.MIN_VALUE : nums1[i - 1];
-            int right_i = i == n1 ? Integer.MAX_VALUE : nums1[i];
-            int left_j = j == 0 ? Integer.MIN_VALUE : nums2[j - 1];
-            int right_j = j == n2 ? Integer.MAX_VALUE : nums2[j];
-
-            // left_i 本来就比right_i小，所以只需要和right_j比较
-            if (left_i < right_j) {
-                m1 = Math.max(left_i, left_j);
-                m2 = Math.min(right_i, right_j);
-                left = i + 1;
-            } else {
-                right = i - 1;
-            }
-        }
-
-        return (n1 + n2) % 2 == 0 ? (m1 + m2) / 2.0 : m2;
-
     }
 }
