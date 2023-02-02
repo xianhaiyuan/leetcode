@@ -1,7 +1,16 @@
-package org.top;
+package org.top.排序;
 //https://leetcode.cn/problems/shu-zu-zhong-de-ni-xu-dui-lcof/
 //数组中的逆序对
-public class shu_zu_zhong_de_ni_xu_dui_lcof {
+/*
+在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数
+
+输入: [7,5,6,4]
+输出: 5
+
+限制：
+0 <= 数组长度 <= 50000
+ */
+public class shu_zu_zhong_de_ni_xu_dui_lcof_2 {
 
     public static void main(String[] args) {
         int[] arr = {1,3,2,3,1};

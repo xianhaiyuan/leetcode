@@ -1,10 +1,29 @@
-package org.top;
+package org.top.排序;
 
 import org.top.common.ListNode;
 
 //https://leetcode.cn/problems/sort-list
 //排序链表
-public class sort_list {
+/*
+给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
+
+输入：head = [4,2,1,3]
+输出：[1,2,3,4]
+
+输入：head = [-1,5,3,4,0]
+输出：[-1,0,3,4,5]
+
+输入：head = []
+输出：[]
+
+提示：
+
+    链表中节点的数目在范围 [0, 5 * 10^4] 内
+    -10^5 <= Node.val <= 10^5
+
+进阶：你可以在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序吗？
+ */
+public class sort_list_3 {
     public static void main(String[] args) {
         ListNode n1 = new ListNode(2);
         ListNode n2 = new ListNode(1);
@@ -41,7 +60,7 @@ public class sort_list {
 
             while (cur != null) { // 如果链表没有被拆完
 
-                // 拆分subLen长度的链表1
+                // 拆分subLen长度的链表1, subLen长度，循环subLen-1次
                 ListNode head_1 = cur;
                 for (int i = 1; i < subLen && cur != null && cur.next != null; i++) {
                     cur = cur.next;
@@ -64,7 +83,7 @@ public class sort_list {
 
                 // 合并两个subLen长度的有序链表
                 ListNode merged = mergeList(head_1, head_2);
-                // prev.next 指向排好序链表的头
+                // 把链给接上，prev.next 指向排好序链表的头
                 prev.next = merged;
 
                 while (prev.next != null) { // 将prev移动到 subLen*2 的位置后去

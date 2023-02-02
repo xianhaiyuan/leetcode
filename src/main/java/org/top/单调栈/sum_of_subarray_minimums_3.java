@@ -1,11 +1,30 @@
-package org.top;
+package org.top.单调栈;
 
 import java.util.Deque;
 import java.util.LinkedList;
 
 //https://leetcode.cn/problems/sum-of-subarray-minimums
 //子数组的最小值之和
-public class sum_of_subarray_minimums {
+/*
+给定一个整数数组 arr，找到 min(b) 的总和，其中 b 的范围为 arr 的每个（连续）子数组。
+由于答案可能很大，因此 返回答案模 10^9 + 7 。
+
+输入：arr = [3,1,2,4]
+输出：17
+解释：
+子数组为 [3]，[1]，[2]，[4]，[3,1]，[1,2]，[2,4]，[3,1,2]，[1,2,4]，[3,1,2,4]。
+最小值为 3，1，2，4，1，1，2，1，1，1，和为 17。
+
+输入：arr = [11,81,94,43,3]
+输出：444
+
+提示：
+
+    1 <= arr.length <= 3 * 10^4
+    1 <= arr[i] <= 3 * 10^4
+
+ */
+public class sum_of_subarray_minimums_3 {
     public static void main(String[] args) {
         int[] arr = {3,1,2,4,1};
 
@@ -52,10 +71,10 @@ public class sum_of_subarray_minimums {
 
         // 第二次循环找到所有元素的右边界
         /*
-            int[] arr = {3,1,2,4,1};
-            left:-1,-1,1,2,1
-            right:1,5,4,4,5
-            在计算左边界或者右边界时将一侧设置为求解小于等于E的元素，目的是为了解决当一个子数组中有两个最小值元素时（比如[3,1,2,4,1]中有两个1），
+            int[] arr = {1,2,2,1};
+            left:-1,0,1,0
+            right:4,3,3,4 (如果计算right时没有>=，就漏了{2,2})
+            在计算左边界或者右边界时将一侧设置为求解小于等于E的元素，目的是为了解决当一个子数组中有两个最小值元素时，
             不重复且不遗漏地统计每一个子数组。
          */
         for (int i = n - 1; i >= 0; i--) {
