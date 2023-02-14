@@ -1,7 +1,6 @@
 package org.top.数字处理;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 //https://leetcode.cn/problems/evaluate-reverse-polish-notation/
 //逆波兰表达式求值
